@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  parameter-hunter:
+    build: .
+    container_name: parameter-bug-hunter
+    volumes:
+      - ./projects:/root/projects
+      - ./wordlists:/root/.parameter_hunter/wordlists
+      - ./config.yaml:/root/.parameter_hunter/config.yaml
+      - ./reports:/root/reports
+    environment:
+      - API_KEY=${API_KEY}
+      - PROXY=${PROXY}
+    command: ["--interactive"]
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:13
+    container_name: parameter-hunter-db
+    environment:
+      POSTGRES_DB: parameter_hunter
+      POSTGRES_USER: hunter
+      POSTGRES_PASSWORD: hunter123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+  wordlists:
+  projects:
