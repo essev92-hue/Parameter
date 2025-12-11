@@ -1,0 +1,24 @@
+tools:
+  arjun: /usr/bin/arjun
+  sqlmap: /usr/bin/sqlmap
+  ffuf: /usr/bin/ffuf
+  gau: /usr/bin/gau
+  waybackurls: /usr/bin/waybackurls
+  nuclei: /usr/bin/nuclei
+  subfinder: /usr/bin/subfinder
+  assetfinder: /usr/bin/assetfinder
+  amass: /usr/bin/amass
+
+wordlists:
+  parameters: /usr/share/wordlists/parameter-names.txt
+  subdomains: /usr/share/wordlists/subdomains-top1million.txt
+
+api_keys:
+  github: ""
+  shodan: ""
+  virustotal: ""
+
+proxy: null
+
+database:
+  path: ~/.parameter_hunter/database.db
