@@ -21,6 +21,47 @@ import requests
 from urllib.parse import urlparse
 import sqlite3
 import hashlib
+import shutil
+from pathlib import Path
+import sys
+
+# Add this function to check dependencies
+def check_dependencies():
+    """Check if all dependencies are met"""
+    required_packages = ['colorama', 'requests', 'yaml']
+    missing_packages = []
+    
+    for package in required_packages:
+        try:
+            __import__(package.replace('-', '_'))
+        except ImportError:
+            missing_packages.append(package)
+    
+    if missing_packages:
+        print(f"{Fore.RED}Missing packages: {', '.join(missing_packages)}{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Install with: pip install {' '.join(missing_packages)}{Style.RESET_ALL}")
+        return False
+    
+    # Check for tools
+    required_tools = ['sqlmap', 'ffuf']
+    missing_tools = []
+    
+    for tool in required_tools:
+        if not shutil.which(tool):
+            missing_tools.append(tool)
+    
+    if missing_tools:
+        print(f"{Fore.YELLOW}Some tools are missing. Some features may be limited.{Style.RESET_ALL}")
+        print(f"Missing: {', '.join(missing_tools)}")
+    
+    return True
+
+# Modify main function to check dependencies
+def main():
+    """Main function"""
+    if not check_dependencies():
+        print(f"{Fore.RED}Please install missing dependencies first.{Style.RESET_ALL}")
+        sys.exit(1)
 
 # Initialize colorama
 init(autoreset=True)
